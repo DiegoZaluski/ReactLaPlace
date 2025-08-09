@@ -1,27 +1,21 @@
-# LaPlace - Orquestrador de IAs Inteligente
+# LaPlace - Projeto de Estudo em React
 
-## 🚀 Visão Geral
-LaPlace é uma plataforma inovadora que atua como um orquestrador inteligente de IAs, capaz de selecionar e gerenciar automaticamente diferentes modelos de IA para fornecer as melhores respostas possíveis. O projeto combina tecnologias modernas de frontend (React) e backend (Python) para criar uma experiência poderosa e intuitiva.
+## 📋 Visão Geral
+LaPlace é um projeto de estudo focado no desenvolvimento de uma aplicação web moderna utilizando React. O objetivo principal é explorar conceitos avançados de frontend, incluindo gerenciamento de estado, rotas e internacionalização, com uma arquitetura escalável e de fácil manutenção.
 
-## 🧠 Conceito Principal
-O coração do LaPlace é um sistema que:
-- Analisa consultas em tempo real
-- Seleciona o modelo de IA mais adequado para cada tipo de pergunta
-- Combina múltiplas IAs para respostas mais completas
-- Aprende continuamente com as interações
+## 🎯 Objetivos
+- Desenvolver uma aplicação React robusta e bem estruturada
+- Implementar um sistema de autenticação completo
+- Criar uma interface responsiva com Tailwind CSS
+- Desenvolver um sistema próprio de internacionalização
 
 ## 🛠️ Tecnologias Utilizadas
 
-### Frontend (React)
-- **React 18** - Biblioteca principal para construção da interface
-- **React Router** - Navegação entre páginas
-- **Tailwind CSS** - Estilização responsiva
-- **Sistema Próprio de i18n** - Solução personalizada para internacionalização
-
-### Backend (Python - Em desenvolvimento)
-- **FastAPI/Flask** - Framework web
-- **Várias APIs de IA** - Integração com diferentes modelos
-- **Sistema de Roteamento Inteligente** - Para seleção de modelos
+### Frontend
+- **React 18** - Biblioteca JavaScript para construção de interfaces
+- **React Router** - Gerenciamento de rotas
+- **Tailwind CSS** - Framework CSS utilitário
+- **Sistema de Internacionalização** - Desenvolvido internamente para suporte a múltiplos idiomas
 
 ## 📂 Estrutura do Projeto
 
@@ -42,16 +36,16 @@ react/
 └── README.md           # Este arquivo
 ```
 
-## 🌐 Internacionalização
-O projeto possui um sistema próprio de internacionalização desenvolvido internamente, permitindo suporte a múltiplos idiomas com uma arquitetura leve e personalizada.
-
 ## 🚧 Status do Desenvolvimento
 - [x] Configuração inicial do React
-- [x] Sistema de autenticação básico
+- [x] Páginas de autenticação (Login/Registro)
 - [x] Componente de seleção de idiomas
-- [ ] Integração com backend Python
-- [ ] Sistema de orquestração de IAs
-- [ ] Painel administrativo
+- [ ] Implementação de rotas protegidas
+- [ ] Desenvolvimento de componentes reutilizáveis
+- [ ] Testes unitários e de integração
+
+---
+Desenvolvido por **Zaluski**
 
 ## 🚀 Como Executar
 
@@ -67,9 +61,5 @@ npm run dev
 
 ## 🤝 Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
-
-## 📄 Licença
-Este projeto está sob a licença MIT - veja o arquivo LICENSE para mais detalhes.
-
 ---
-Desenvolvido com ❤️ pela equipe LaPlace
+Iniciado por **Zaluski** ❤️ 
