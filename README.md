@@ -62,4 +62,4 @@ npm run dev
 ## 🤝 Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
 ---
-Iniciado por **Zaluski** ❤️ 
+Desenvolvido por **Zaluski** ❤️ 

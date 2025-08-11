@@ -1,5 +1,5 @@
-import Button from "./Button";
-import Language from "./Language"
+import Button from "../../../components/ui/Button";
+import Language from "../../../components/shared/Language"
 function Register() {
     return(
         <div className='flex flex-col items-center justify-center w-full h-screen gap-5'>

@@ -1,4 +1,4 @@
-import Button from './Button';
+import Button from '../../../components/ui/Button';
 
 const Login = () => (
   <div className="flex flex-col items-center justify-center h-screen p-6">
