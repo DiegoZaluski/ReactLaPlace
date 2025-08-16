@@ -1,29 +1,42 @@
-import {useState} from 'react'
+import { useTranslation } from 'react-i18next'
+
+const Languages = [
+    { code: 'pt', label: 'Português' },
+    { code: 'en', label: 'English' },
+    { code: 'es', label: 'Español' },
+    { code: 'fr', label: 'Français' },
+    { code: 'de', label: 'Deutsch' },
+    { code: 'it', label: 'Italiano' },
+    { code: 'ja', label: '日本語' },
+    { code: 'zh', label: '中文' },
+    { code: 'ru', label: 'Русский' },
+    { code: 'hi', label: 'हिन्दी' },
+    { code: 'ar', label: 'العربية' }
+]
 function Language() {
-    const [language, setLanguage] = useState('pt-BR')
-    const languages = [
-        { code: 'pt-BR', label: 'Português' },
-        { code: 'en-US', label: 'English' },
-        { code: 'es-ES', label: 'Español' },
-        { code: 'fr-FR', label: 'Français' },
-        { code: 'de-DE', label: 'Deutsch' },
-        { code: 'it-IT', label: 'Italiano' },
-        { code: 'ja-JP', label: '日本語' },
-        { code: 'zh-CN', label: '中文' },
-        { code: 'ru-RU', label: 'Русский' },
-        { code: 'hi-IN', label: 'हिन्दी' },
-        { code: 'ar-SA', label: 'العربية' }
-    ]
-    function changeLanguage(code) {
-        setLanguage(code)// criar um arquivo js para servir com i18n 
+    const { i18n } = useTranslation();
+    
+    const changeLanguage = async (lng) => {
+        try {
+            await i18n.changeLanguage(lng);
+            console.log('Idioma alterado para:', lng);
+        } catch (error) {
+            console.error('Erro ao mudar idioma:', error);
+        }
     }
-    return(
-        <div className="flex gap-2 text-white">
-            <p>{language}</p>
-          {languages.map((language) => (
-            <button onClick={() => changeLanguage(language.code)}>{language.label}</button>
-          ))}
+    return (
+        <div className="flex-wrap">
+            {Languages.map((lgn) => (
+                <button 
+                    key={lgn.code} 
+                    onClick={() => changeLanguage(lgn.code)} className={`m-2 bg-inherit rounded-md 
+                    ${ lgn.code === i18n.language ? 'bg-blue-600 text-white' : 'text-white '}`}
+                    disabled={lgn.code === i18n.language}>{lgn.label}
+                </button>
+            ))}
         </div>
     )
+
 }
 export default Language
+

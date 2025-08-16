@@ -1,10 +1,13 @@
-console.log('main.jsx carregado')
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import '../App.css'
-import App from './App.jsx'
-import { BrowserRouter } from 'react-router-dom'
-import '../i18n/i18n.js';
+import { StrictMode, Suspense } from 'react';
+import { createRoot } from 'react-dom/client';
+import { I18nextProvider } from 'react-i18next';
+//aqui foi importado o provider que é responsável por fornecer o i18n para toda a aplicação
+import i18n from './i18n/i18n'; //aqui foi importado a configuração do i18n reponsavel por toda a internacionalização da aplicação
+import '../App.css';
+import App from './App.jsx';
+import { BrowserRouter } from 'react-router-dom';
+
+
 
 console.log('Elemento root encontrado:', document.getElementById('root'))
 
@@ -23,9 +26,13 @@ if (!rootElement) {
     console.log('React está sendo montado no elemento root')
     root.render(
       <StrictMode>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <I18nextProvider i18n={i18n}>
+          <Suspense fallback={<div>Carregando...</div>}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </Suspense>
+        </I18nextProvider>
       </StrictMode>
     )
   } catch (error) {

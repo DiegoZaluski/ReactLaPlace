@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
       host: true,         // Permite acesso em rede local
       strictPort: false,  // Tenta portas alternativas se a 3000 estiver ocupada
     },
-    
+
     // Resolução de módulos e aliases
     resolve: {
       alias: {
@@ -48,12 +48,13 @@ export default defineConfig(({ mode }) => {
       }
     },
     
-    // Configuração de build
+    // Configuração de build // adicionando i18n 
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
       sourcemap: isProduction ? false : 'inline', // Melhora a performance em produção
       minify: isProduction ? 'terser' : false,   // Minifica apenas em produção
+      assetsInlineLimit:0,
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'index.html'),
@@ -61,9 +62,17 @@ export default defineConfig(({ mode }) => {
         output: {
           entryFileNames: 'assets/[name]-[hash].js',
           chunkFileNames: 'assets/[name]-[hash].js',
-          assetFileNames: 'assets/[name]-[hash][extname]',
-        },
+          assetFileNames: (assetInfo) => {
+            const info = assetInfo.name.split('.');
+            const ext = info[info.length -1];
+            if (['json'].includes(ext)) {
+              return `locales/[name].[ext]`;
+            }
+            return `assets/[name]-[hash][extname]`;
+          }
+        }
       },
+
       // Otimizações para produção
       ...(isProduction && {
         terserOptions: {
