@@ -24,14 +24,14 @@ const Login = () => {
         />
         
         <div className="w-full flex gap-3">
+          <Button className="hover:bg-[#24292e]">
+            {t('login')}
+          </Button>
           <Link to="/register">
-            <Button className="hover:bg-[#24292e]">
-              {t('login')}
+            <Button className="bg-green-700 hover:bg-green-600 border-green-700 w-full">
+              {t('register')}
             </Button>
           </Link>
-          <Button className="bg-green-700 hover:bg-green-600 border-green-700 w-full">
-            {t('register')}
-          </Button>
         </div>
         
         <a href="#" className="text-white hover:underline">

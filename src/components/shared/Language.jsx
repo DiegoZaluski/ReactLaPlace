@@ -13,7 +13,7 @@ const Languages = [
     { code: 'hi', label: 'हिन्दी' },
     { code: 'ar', label: 'العربية' }
 ]
-function Language() {
+function Language({className}) {
     const { i18n } = useTranslation();
     
     const changeLanguage = async (lng) => {
@@ -25,7 +25,7 @@ function Language() {
         }
     }
     return (
-        <div className="flex-wrap">
+        <div className={`flex-wrap  ${className}`}>
             {Languages.map((lgn) => (
                 <button 
                     key={lgn.code} 
