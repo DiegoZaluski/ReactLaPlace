@@ -1,4 +1,4 @@
-import Button from '../../../components/ui/Button';
+import Button from '../../../components/layout/Button';
 import {useTranslation} from 'react-i18next';
 import Language from '../../../components/shared/Language';
 import { Link } from 'react-router-dom';
