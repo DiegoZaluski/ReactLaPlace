@@ -6,9 +6,9 @@ import Chat from './components/layout/Chat.jsx'
 function App() {
   return (
     <Routes >
+      <Route path="/" element={<Chat/>}/>
       <Route path="/login" element={<Login />}/>
       <Route path="/register" element={<Register/>}/>
-      <Route path="/chat" element={<Chat/>}/>
     </Routes>
   );
 }

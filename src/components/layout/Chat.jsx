@@ -4,7 +4,7 @@ import {Menu, Paperclip,Volume,Image,Plus} from 'lucide-react'
 
 
 function Chat() {
-    alert("Olá! Estou no início deste projeto. Se você gostou da ideia, seja bem-vindo para contribuir com sua ajuda!")
+    alert("Olá! Estou no início deste projeto. Se você gostou da ideia, seja bem-vindo para contribuir com sua ajuda! \n projeto ainda é apenas um interface😁")
     return (
             <div className="flex flex-col flex-wrap justify-center items-center h-full" >
                 {/* Header */}
