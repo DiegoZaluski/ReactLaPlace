@@ -7,7 +7,7 @@ function Register() {
     const { t, ready } = useTranslation(['auth']);
     if (!ready) return <div>Loading translate...</div>
     return(
-        <div className='flex flex-col items-center justify-center w-full h-screen gap-5 relative'>
+        <div className='flex flex-col items-center justify-center w-full h-screen gap-5 relative img-bg bg-gray-950'>
             <Link to="/login" className='flex flex-row gap-2 text-center absolute left-10 top-10 text-white'>
                 <ArrowLeft className="size={30}" /> {t('back')}
             </Link>

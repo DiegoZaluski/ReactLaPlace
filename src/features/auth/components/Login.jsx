@@ -7,7 +7,7 @@ const Login = () => {
   const {t, ready} = useTranslation(['auth']);
   if (!ready) return <div>loading translate...</div>
   return (
-    <div className="flex flex-col items-center justify-center h-screen p-6 gap-5">
+    <div className="flex flex-col items-center justify-center h-screen p-6 gap-5 img-bg bg-gray-950">
       <div className="w-[450px] space-y-4 flex flex-col border rounded-md p-6">
         <h1 className="text-2xl font-bold text-white">{t('login')}</h1>
         
