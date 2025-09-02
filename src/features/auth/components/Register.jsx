@@ -12,7 +12,7 @@ function Register() {
                 <ArrowLeft className="size={30}" /> {t('back')}
             </Link>
             <h1 className="text-5xl font-bold text-white">{t("register")}</h1>
-            <div className="flex flex-col items-center bg-white m-5 pt-5 pr-10 pb-5 pl-10 rounded-md">
+            <div className="flex flex-col items-center bg-white m-5 p-10 rounded-md">
                 
                 <form className="flex flex-col gap-4" action="">
                     <input 
@@ -39,9 +39,9 @@ function Register() {
                         name="confirmPassword"
                         //PASS CHANGE HERE
                         placeholder={t('confirmPassword')}/>
-                    <Button type="submit" className="w-full h-10 p-0 border-black text-black bg-gray-700 border-none">{t('register')}</Button>
+                    <Button type="submit" className="w-full h-10 p-0 border-black text-black bg-green-500 border-none">{t('register')}</Button>
                     <div className="flex gap-2">
-                        <a className="text-black hover:underline">{t('privacyPolicy')}</a> 
+                        <a className="hover:underline">{t('privacyPolicy')}</a> 
                         <p>|</p>
                         <Link to="/login" className="hover:underline">
                             {t('hasAccount')}

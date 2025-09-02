@@ -11,6 +11,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* 🦎 seletores: Classes utilitarias personalizadas 🦎*/
 @layer utilities {
   .sx { box-shadow: 0 0px 5px rgba(0, 0, 0, 0.281);}
   .shadow-b-sm { box-shadow: 0 0px 10px rgba(0,0,0,0.12); }
@@ -28,6 +29,12 @@
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
+  .noScroll {
+    overscroll-behavior: none;
+    touch-action: pan-y;
+    position: fixed;
+    overflow: hidden;
   }
+}
 
 
