@@ -1,5 +1,5 @@
-import Button from "../../../components/layout/Button";
-import Language from "../../../components/shared/Language"
+import Button from "./Button";
+import Language from "../shared/Language"
 import { useTranslation } from "react-i18next";
 import { Link} from "react-router-dom";
 import { ArrowLeft } from "lucide-react";

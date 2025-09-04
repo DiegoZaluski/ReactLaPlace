@@ -1,6 +1,6 @@
-import Button from '../../../components/layout/Button';
+import Button from './Button';
 import {useTranslation} from 'react-i18next';
-import Language from '../../../components/shared/Language';
+import Language from '../shared/Language';
 import { Link } from 'react-router-dom';
 
 const Login = () => {

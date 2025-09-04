@@ -1,8 +1,8 @@
 import {React, useState }from 'react';
-import Button from '../layout/Button';
+import Button from './Button';
 import {Menu, Paperclip,Volume,Image,Plus} from 'lucide-react'
 import {useTranslation} from 'react-i18next';
-import Op from '../layout/Op';
+import Op from './Op';
 
 
 function Chat() {
@@ -16,7 +16,7 @@ function Chat() {
                 {/* Header */}
                 <header className="h-20 w-full flex items-center flex-row text-white shadow-b-md z-10">
                     <Op className={`${showOp ? 'translate-y-0': 'translate-y-[-100%]'}`}/>
-                    <div className="flex flex-col border-white h-16 w-32 items-center justify-center rounded-md shadow-md translate-x-2">
+                    <div className="flex flex-col border-white h-auto w-auto items-center justify-center shadow-md translate-x-2 active:bg-gray-500 rounded-md ml-10">
                         <Button 
                         onClick={() => setShowOp(!showOp)}
                         className="h-14 w-14 flex items-center justify-center"><Menu className="text-white"/></Button>
