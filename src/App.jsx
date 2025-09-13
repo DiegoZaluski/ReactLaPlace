@@ -1,16 +1,12 @@
 import {Routes, Route} from 'react-router-dom'
 import '../index.css'
-import Login from './components/layout/Login'
-import Register from './components/layout/Register'
 import Chat from './components/layout/Chat.jsx'
-import Op from './components/layout/Op.jsx'
+import ChatOp from './components/layout/ChatOp.jsx'
 function App() {
   return (
     <Routes >
       <Route path="/" element={<Chat/>}/>
-      <Route path="/login" element={<Login />}/>
-      <Route path="/register" element={<Register/>}/>
-      <Route path="/op" element={<Op/>}/>
+      <Route path="/ChatOp" element={<ChatOp/>}/>
     </Routes>
   );
 }

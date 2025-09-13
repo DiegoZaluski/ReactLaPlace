@@ -2,7 +2,7 @@ import {React, useState }from 'react';
 import Button from './Button';
 import {Menu, Paperclip,Volume,Image,Plus} from 'lucide-react'
 import {useTranslation} from 'react-i18next';
-import Op from './Op';
+import ChatOp from './ChatOp';
 
 
 function Chat() {
@@ -12,10 +12,10 @@ function Chat() {
     if (!ready) return <div>Loading translate...</div>
     //alert(t("alert"))
     return (
-            <div className="flex flex-col flex-wrap justify-center items-center h-screen w-full paddEnv bg-gray-950 img-bg p-0 m-0 img-bg noScroll">
+            <div className="flex flex-col flex-wrap justify-center items-center h-screen w-full paddEnv bg-[#151517] p-0 m-0 noScroll">
                 {/* Header */}
                 <header className="h-20 w-full flex items-center flex-row text-white shadow-b-md z-10">
-                    <Op className={`${showOp ? 'translate-y-0': 'translate-y-[-100%]'}`}/>
+                    <ChatOp className={`${showOp ? 'translate-x-0': 'translate-x-[-100%]'}`}/>
                     <div className="flex flex-col border-white h-auto w-auto items-center justify-center shadow-md translate-x-2 active:bg-gray-500 rounded-md ml-10">
                         <Button 
                         onClick={() => setShowOp(!showOp)}
@@ -26,7 +26,7 @@ function Chat() {
                 {/* Messages Container */}
                 <div
                 onClick={() => setShowOp(false)}
-                 className="flex flex-col justify-end items-center flex-1 w-full bg-gray-950 img-bg">
+                 className="flex flex-col justify-end items-center flex-1 w-full bg-[#151517] img-bg">
                         <h1 className="text-white font-bold absolute top-1/2 text-4xl">LaPlace</h1>
                         <div className="relative w-36 h-12 rounded-md sx bottom-2 -top-5">
                             <Volume className="text-white absolute left-6 top-1/2 -translate-y-1/2 hover:text-red-500" />
@@ -50,7 +50,7 @@ function Chat() {
                         />
                     </div>
                 </div>
-                <footer className="flex items-center justify-center  h-10 w-full text-white img-bg bg-gray-950 text-sm">
+                <footer className="flex items-center justify-center  h-10 w-full text-white img-bg bg-[#151517] text-sm">
                     LaPlca&trade;
                 </footer>
             </div>

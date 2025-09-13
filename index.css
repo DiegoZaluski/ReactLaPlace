@@ -18,11 +18,6 @@
   .shadow-b-md { box-shadow: 0 0px 15px rgba(0,0,0,0.18); }
   .shadow-b-xl { box-shadow: 0 0px 20px rgba(0,0,0,0.25); }
   .caret-white { caret-color: #ffffff; }
-  .img-bg { 
-    background-image: url("./images/6674f0cdb5b7b401612cf065_noise-50.avif");
-    background-size: 200px 200px;
-
-          }
   .paddEnv { 
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
