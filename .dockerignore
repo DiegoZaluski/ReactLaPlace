@@ -1,0 +1,18 @@
+# Dependências e arquivos de build
+node_modules
+dist
+npm-debug.log
+
+# Arquivos do Docker
+Dockerfile
+dockerfile
+.dockerignore
+
+# Arquivos de configuração de ambiente
+.env
+.env.local
+.env.*
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db

@@ -1,6 +1,6 @@
 import {React, useState }from 'react';
 import Button from './Button';
-import {Menu, Paperclip,Volume,Image,Plus} from 'lucide-react'
+import {Menu,X, Paperclip,Volume,Image,Plus} from 'lucide-react'
 import {useTranslation} from 'react-i18next';
 import ChatOp from './ChatOp';
 
@@ -17,9 +17,10 @@ function Chat() {
                 <header className="h-20 w-full flex items-center flex-row text-white shadow-b-md z-10">
                     <ChatOp className={`${showOp ? 'translate-x-0': 'translate-x-[-100%]'}`}/>
                     <div className="flex flex-col border-white h-auto w-auto items-center justify-center shadow-md translate-x-2 active:bg-gray-500 rounded-md ml-10">
-                        <Button 
-                        onClick={() => setShowOp(!showOp)}
-                        className="h-14 w-14 flex items-center justify-center"><Menu className="text-white"/></Button>
+                        <Button Minus 
+                            onClick={() => setShowOp(!showOp)}
+                            className="h-14 w-14 flex items-center justify-center">{showOp? <X className="text-white h-6 w-6"/> : <Menu className="text-white h-6 w-6"/>}
+                        </Button>
                     </div>
                     <h1 className="ml-5 flex"><strong>LP web</strong></h1>
                 </header>              
@@ -28,11 +29,8 @@ function Chat() {
                 onClick={() => setShowOp(false)}
                  className="flex flex-col justify-end items-center flex-1 w-full bg-[#151517] img-bg">
                         <h1 className="text-white font-bold absolute top-1/2 text-4xl">LaPlace</h1>
-                        <div className="relative w-36 h-12 rounded-md sx bottom-2 -top-5">
-                            <Volume className="text-white absolute left-6 top-1/2 -translate-y-1/2 hover:text-red-500" />
-                            <Image className="text-white absolute left-12 top-1/2 -translate-y-1/2 hover:text-red-500" />
-                            <Paperclip className="text-white absolute left-20 top-1/2 -translate-y-1/2 hover:text-red-500" />
-                            <Plus className="text-white absolute left-28 top-1/2 -translate-y-1/2 hover:text-red-500" />
+                        <div className="flex w-14 h-12 rounded-md sx bottom-2 transform -translate-y-1/2 items-center justify-center">
+                            <Plus className="text-white hover:text-red-500" />
                         </div>
                     <div className="relative w-80 xl:w-1/3 md:w-2/4 -translate-y-3">
                         <textarea

@@ -16,22 +16,22 @@ const Languages = [
 function Language({className}) {
     const { i18n } = useTranslation();
     
-    const changeLanguage = async (lng) => {
+    const handleLanguageChange = async (languageCode) => {
         try {
-            await i18n.changeLanguage(lng);
-            console.log('Idioma alterado para:', lng);
+            await i18n.changeLanguage(languageCode);
+            console.log('Language changed to:', languageCode);
         } catch (error) {
-            console.error('Erro ao mudar idioma:', error);
+            console.error('Error changing language:', error);
         }
     }
     return (
         <div className={`flex-wrap  ${className}`}>
-            {Languages.map((lgn) => (
+            {Languages.map((language) => (
                 <button 
-                    key={lgn.code} 
-                    onClick={() => changeLanguage(lgn.code)} className={`m-2 bg-inherit rounded-md 
-                    ${ lgn.code === i18n.language ? 'bg-blue-600 text-white' : 'text-white '}`}
-                    disabled={lgn.code === i18n.language}>{lgn.label}
+                    key={language.code} 
+                    onClick={() => handleLanguageChange(language.code)} className={`m-2 bg-inherit rounded-md 
+                    ${ language.code === i18n.language ? 'bg-blue-600 text-white' : 'text-white '}`}
+                    disabled={language.code === i18n.language}>{language.label}
                 </button>
             ))}
         </div>
