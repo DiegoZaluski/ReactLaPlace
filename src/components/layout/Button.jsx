@@ -3,7 +3,7 @@ function Button({children, onClick, className, type}) {
         <div>
             <button onClick={onClick}
             type={type}
-            className = {`border text-white p-2 rounded-md ${className}`}>{children}</button>
+            className = {`text-white p-1 rounded-md ${className}`}>{children}</button>
         </div>
     )
 }

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 .btn {
   @apply px-4 py-2 rounded;
 }
@@ -30,6 +30,15 @@
     position: fixed;
     overflow: hidden;
   }
+  .bgImg {
+    background-image: url(images/6674f0cdb5b7b401612cf065_noise-50.avif);
+    background-size: 200px 200px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-repeat: repeat;
+    background-attachment: fixed;
+  }
+  .font-playfair { font-family: 'Playfair Display', serif; }
 }
 
 
