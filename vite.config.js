@@ -10,22 +10,32 @@ export default defineConfig(({ mode }) => {
   const isProduction = mode === 'production';
   
   return {
-    // Configuração base
+    // Base configuration
     base: './',
     publicDir: 'public',
     
     // Plugins
     plugins: [react()],
     
-    // Configuração do servidor de desenvolvimento
+    // Development server configuration
     server: {
-      port: 3000,         // Porta inicial
-      open: '/index.html',  // Garante que o app.html seja aberto por padrão
-      host: true,         // Permite acesso em rede local
-      strictPort: false,  // Tenta portas alternativas se a 3000 estiver ocupada
+      port: 3000,         // Initial port
+      open: '/index.html',  // Ensures app.html opens by default
+      host: true,         // Allows local network access
+      strictPort: false,  // Tries alternative ports if 3000 is busy
+      
+      // ✅ ADD PROXY CONFIGURATION HERE (CORS solution)
+      proxy: {
+        '/api': {
+          target: 'http://localhost:8080',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+          secure: false,
+        }
+      }
     },
 
-    // Resolução de módulos e aliases
+    // Module resolution and aliases
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),
@@ -36,25 +46,25 @@ export default defineConfig(({ mode }) => {
       extensions: ['.js', '.jsx', '.json'], // Added common extensions
     },
     
-    // Configuração de CSS
+    // CSS configuration
     css: {
       modules: {
         localsConvention: 'camelCaseOnly',
       },
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "@/styles/variables.scss";` // Se você usar SCSS
+          additionalData: `@import "@/styles/variables.scss";` // If you use SCSS
         }
       }
     },
     
-    // Configuração de build // adicionando i18n 
+    // Build configuration // adding i18n 
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
-      sourcemap: isProduction ? false : 'inline', // Melhora a performance em produção
-      minify: isProduction ? 'terser' : false,   // Minifica apenas em produção
-      assetsInlineLimit:0,
+      sourcemap: isProduction ? false : 'inline', // Improves performance in production
+      minify: isProduction ? 'terser' : false,   // Minifies only in production
+      assetsInlineLimit: 0,
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'index.html'),
@@ -64,7 +74,7 @@ export default defineConfig(({ mode }) => {
           chunkFileNames: 'assets/[name]-[hash].js',
           assetFileNames: (assetInfo) => {
             const info = assetInfo.name.split('.');
-            const ext = info[info.length -1];
+            const ext = info[info.length - 1];
             if (['json'].includes(ext)) {
               return `locales/[name].[ext]`;
             }
@@ -73,7 +83,7 @@ export default defineConfig(({ mode }) => {
         }
       },
 
-      // Otimizações para produção
+      // Production optimizations
       ...(isProduction && {
         terserOptions: {
           compress: {
@@ -81,11 +91,11 @@ export default defineConfig(({ mode }) => {
             drop_debugger: true,
           },
         },
-        chunkSizeWarningLimit: 1000, // Aumenta o limite de aviso de tamanho de chunk
+        chunkSizeWarningLimit: 1000, // Increases chunk size warning limit
       }),
     },
     
-    // Configuração de preview (npm run preview)
+    // Preview configuration (npm run preview)
     preview: {
       port: 3000,
       open: true,
