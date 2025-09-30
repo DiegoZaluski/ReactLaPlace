@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Menu, X, Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { useSSEConnection } from './useSSEConnection';
+import { useSSEConnection } from '../../hooks/useSSEConnection';
 import Button from './Button';
 import ChatOp from './ChatOp';
 import MessageInput from './MessageInput';

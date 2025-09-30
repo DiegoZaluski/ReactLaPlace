@@ -39,6 +39,14 @@
     background-attachment: fixed;
   }
   .font-playfair { font-family: 'Playfair Display', serif; }
+  /*PESQUISAR UM POUCO MAIS SOBRE O QUE FOI FEITO*/
+  .scrollbar-hide {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 

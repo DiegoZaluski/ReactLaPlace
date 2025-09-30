@@ -2,7 +2,7 @@ import React, { useRef, useCallback } from 'react';
 import { Plus, ArrowUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { useSSEConnection } from './useSSEConnection.jsx';
+import { useSSEConnection } from '../../hooks/useSSEConnection.jsx';
 
 // Isolated Tooltip component
 const ClearTooltip = React.memo(({ tooltipRef }) => {
@@ -76,6 +76,7 @@ const MessageInput = React.memo(({
           rows="1"
           style={{ scrollbarWidth: 'none' }}
           aria-label="Type your message"
+          onKeyDown={(e) => {if(e.key === 'Enter' && !e.shiftKey) {e.preventDefault(); onSend(value.trim()); onClear();}}}
         />
         <button
           type="submit"

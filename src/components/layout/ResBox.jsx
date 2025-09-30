@@ -18,18 +18,19 @@ import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash';
 const LANGUAGES = { javascript, js: javascript, jsx, typescript, ts: typescript, python, py: python, css, json, bash, sh: bash };
 Object.entries(LANGUAGES).forEach(([name, lang]) => SyntaxHighlighter.registerLanguage(name, lang));
 
-/** Hook para copiar texto para clipboard */
+/*HOOK TO COPY TEXT TO CLIPBOARD */
 const useCopyToClipboard = () => {
   const [copied, setCopied] = useState(false);
 
   const copy = useCallback(async (text) => {
-    try {
+    try 
+    {
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
       return true;
     } catch (err) {
-      console.error('Falha ao copiar:', err);
+      console.error('Failed to copy:', err);
       return false;
     }
   }, []);
@@ -37,7 +38,7 @@ const useCopyToClipboard = () => {
   return { copied, copy };
 };
 
-/** Indicador de digitação */
+/*TYPING INDICATOR */
 const TypingIndicator = memo(() => (
   <div className="flex items-center mt-4 space-x-2">
     {[0, 150, 300].map((delay, idx) => (
@@ -47,7 +48,7 @@ const TypingIndicator = memo(() => (
 ));
 TypingIndicator.displayName = 'TypingIndicator';
 
-/** Bloco de código com copiar */
+/*CODE BLOCK WITH COPY FUNCTIONALITY */
 const CodeBlock = memo(({ children, className, ...props }) => {
   const { copied, copy } = useCopyToClipboard();
   const match = /language-([\w+-]+)/.exec(className || '');
@@ -55,8 +56,9 @@ const CodeBlock = memo(({ children, className, ...props }) => {
   const code = String(children).replace(/\n$/, '');
   const supported = Object.keys(LANGUAGES);
 
-  if (!match) {
-    return <code className="bg-gray-800 text-amber-300 px-2 py-1 rounded text-sm font-mono break-all max-w-full">{children}</code>;
+  if (!match) 
+  {
+    return <code className="bg-gray-800 text-amber-300 px-2 py-1 rounded text-sm font-mono break-all max-w-full">{children}</code>; // color: inline code
   }
 
   return (
@@ -92,7 +94,7 @@ const CodeBlock = memo(({ children, className, ...props }) => {
           </SyntaxHighlighter>
         ) : (
           <pre className="text-sm p-4 bg-gray-900 rounded-md overflow-x-auto">
-            <code className="text-amber-300 font-mono break-all">{code}</code>
+            <code className="text-amber-300 font-mono break-all">{code}</code> {/* color: unsupported language code block */}
           </pre>
         )}
       </div>
@@ -101,17 +103,17 @@ const CodeBlock = memo(({ children, className, ...props }) => {
 });
 CodeBlock.displayName = 'CodeBlock';
 
-/** Componentes customizados para Markdown */
+/*CUSTOM COMPONENTS FOR MARKDOWN */
 const createMarkdownComponents = () => ({
   code: CodeBlock,
-  h1: (p) => <h1 className="text-2xl font-bold text-[#F5F5DC] mb-4 mt-6" {...p} />,
-  h2: (p) => <h2 className="text-xl font-semibold text-[#F5F5DC] mb-3 mt-5" {...p} />,
-  h3: (p) => <h3 className="text-lg font-semibold text-[#F5F5DC] mb-2 mt-4" {...p} />,
-  p: (p) => <p className="text-[#F5F5DC] mb-4 leading-relaxed break-words" {...p} />,
-  a: ({ href, ...p }) => <a href={href} target="_blank" rel="noreferrer" className="text-amber-400 underline break-all" {...p} />,
+  h1: (p) => <h1 className="text-2xl font-bold text-[#F5F5DC] mb-4 mt-6" {...p} />, // color: heading 1
+  h2: (p) => <h2 className="text-xl font-semibold text-[#F5F5DC] mb-3 mt-5" {...p} />, // color: heading 2
+  h3: (p) => <h3 className="text-lg font-semibold text-[#F5F5DC] mb-2 mt-4" {...p} />, // color: heading 3
+  p: (p) => <p className="text-[#F5F5DC] mb-4 leading-relaxed break-words" {...p} />, // color: paragraph
+  a: ({ href, ...p }) => <a href={href} target="_blank" rel="noreferrer" className="text-amber-400 underline break-all" {...p} />, // color: link
 });
 
-/** Hook para processar conversas */
+/*HOOK TO PROCESS CONVERSATIONS */
 const useConversationProcessor = (messages, isGenerating) => {
   const [conversation, setConversation] = useState([]);
   const [currentResponse, setCurrentResponse] = useState('');
@@ -135,7 +137,8 @@ const useConversationProcessor = (messages, isGenerating) => {
 
   const addUserMessage = useCallback((message) => setConversation(prev => [...prev, { type: 'user', content: message }]), []);
   useEffect(() => {
-    if (!isGenerating && currentResponse.trim()) {
+    if (!isGenerating && currentResponse.trim()) 
+    {
       setConversation(prev => [...prev, { type: 'assistant', content: currentResponse.trim() }]);
       setCurrentResponse('');
       setTokenCount(0);
@@ -147,7 +150,7 @@ const useConversationProcessor = (messages, isGenerating) => {
   return { fullContent, tokenCount, addUserMessage };
 };
 
-/** Componente ResBox Fantasma */
+/*RESBOX COMPONENT*/
 const ResBox = memo(({ messages = [], isGenerating = false, className = '', showTypingIndicator = true, showWelcome = true, onUserMessage }) => {
   const { fullContent, tokenCount, addUserMessage } = useConversationProcessor(messages, isGenerating);
   const messagesEndRef = useRef(null);
@@ -161,26 +164,27 @@ const ResBox = memo(({ messages = [], isGenerating = false, className = '', show
     scrollTimeoutRef.current = setTimeout(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); scrollTimeoutRef.current = null; }, 100);
   }, [fullContent, isGenerating]);
 
-  if (!fullContent.trim() && !isGenerating && showWelcome) {
+  if (!fullContent.trim() && !isGenerating && showWelcome) 
+  {
     return (
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
-        <h1 className="text-[#F5F5DC] font-bold text-4xl">Pergunte Sobre o Projeto!</h1>
+        <h1 className="text-[#F5F5DC] font-bold text-4xl">Ask About the Project!</h1> 
       </div>
     );
   }
 
   return (
     <div
-      className={`fixed inset-0 flex items-start justify-center pt-20 ${className}`}
+      className={`fixed inset-0 flex items-start justify-center pt-44 pl-10 pr-10 ${className}`}
       style={{ zIndex: 1, pointerEvents: 'none' }}
     >
       <div
-        className="relative w-full max-w-4xl p-4 rounded-lg shadow-lg pointer-events-auto"
-        style={{ maxHeight: '65vh', overflowY: 'auto' }}
+        className="relative w-full max-w-4xl p-4 rounded-lg shadow-lg pointer-events-auto scrollbar-hide"
+        style={{ maxHeight: '55vh', overflowY: 'auto' }}
       >
         { (isGenerating || tokenCount > 0) && (
           <div className="text-center mb-2 shrink-0 fixed top-6 left-1/2 transform -translate-x-1/2">
-            <span className="text-white text-sm bg-black px-3 py-1 rounded-full">Tokens: {tokenCount}</span>
+            <span className="text-white text-sm bg-black px-3 py-1 rounded-full">Tokens: {tokenCount}</span> {/* color: token counter */}
           </div>
         )}
 
