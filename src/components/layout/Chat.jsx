@@ -1,10 +1,7 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { Menu, X, Plus } from 'lucide-react';
+import React, { useState, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { useSSEConnection } from '../../hooks/useSSEConnection';
-import Button from './Button';
-import ChatOp from './ChatOp';
+
 import MessageInput from './MessageInput';
 import ResBox from './ResBox';
 
@@ -46,9 +43,19 @@ const useAutoResize = () => {
 const useChatState = () => {
   const [showOp, setShowOp] = useState(false);
   const [message, setMessage] = useState('');
-  const { messages, sendMessage, isConnected } = useSSEConnection('/api/generate/stream');
+  // NOVA LINHA: Ref para armazenar a função de adicionar mensagem do ResBox
+  const chatRef = useRef(null); 
+  
+  // Desestruturando isGenerating e stopGeneration (correto)
+  const { messages, sendMessage, isConnected, isGenerating, stopGeneration } = useSSEConnection('/api/generate/stream');
 
   const handleSend = useCallback((messageText) => {
+    // 1. NOTIFICA o ResBox para adicionar a mensagem do usuário à conversa
+    if (chatRef.current?.addUserMessage) {
+        chatRef.current.addUserMessage(messageText);
+    }
+
+    // 2. Envia o prompt para a IA
     console.log(`Sending to AI: ${messageText}`);
     sendMessage(messageText);
   }, [sendMessage]);
@@ -90,26 +97,17 @@ const useChatState = () => {
     handleHeightAdjust,
     handleSend,
     isConnected,
-    messages
+    isGenerating,
+    stopGeneration,
+    messages,
+    chatRef // Exporta a ref para ser passada para o ResBox
   };
 };
 
 // Isolated Header component
+// POSIÇÃO CORRIGIDA: Definido ANTES do componente Chat.
 const ChatHeader = React.memo(({ showOp, onToggleMenu, t }) => (
   <header className="h-20 w-full flex items-center flex-row text-white shadow-b-md z-10">
-    <div className="flex flex-col h-auto w-auto items-center justify-center shadow-md translate-x-2 active:bg-gray-500 rounded-md ml-10">
-      <Button
-        onClick={onToggleMenu}
-        className="h-14 w-14 flex items-center justify-center"
-        aria-label={showOp ? t('close_menu') : t('open_menu')}
-      >
-        {showOp ? (
-          <X className="text-white h-6 w-6" />
-        ) : (
-          <Menu className="text-white h-6 w-6" />
-        )}
-      </Button>
-    </div>
     <h1 className="ml-5 flex font-playfair">
       <strong>LaPlace</strong>
     </h1>
@@ -128,8 +126,12 @@ const Chat = () => {
     clearMessage,
     handleHeightAdjust,
     handleSend,
+    // CORRIGIDO: Desestruturando as props isGenerating e stopGeneration
     isConnected,
-    messages
+    isGenerating, 
+    stopGeneration,
+    messages,
+    chatRef // Importa a ref
   } = useChatState();
   const { tooltipRef, showTooltip, hideTooltip } = useTooltip();
   const { textareaRef, adjustHeight } = useAutoResize();
@@ -144,14 +146,7 @@ const Chat = () => {
   }
 
   return (
-    <div className="flex flex-col flex-wrap justify-center items-center h-screen w-full paddEnv bg-[#0f0f11] p-0 m-0 noScroll bgImg">
-      
-      {/* Chat Options Sidebar */}
-      <ChatOp 
-        className={`transition-transform duration-300 ease-in-out ${
-          showOp ? 'translate-x-0' : 'translate-x-[-100%]'
-        }`}
-      />
+    <div className="flex flex-col flex-wrap justify-center items-center h-screen w-full paddEnv bg-[#0f0f11] p-0 m-0 noScroll">
       
       {/* Header */}
       <ChatHeader 
@@ -163,15 +158,18 @@ const Chat = () => {
       {/* Main Content Area */}
       <div
         onClick={closeMenu}
-        className="flex flex-col justify-end items-center flex-1 w-full bg-[#0f0f11] bgImg"
+        className="flex flex-col justify-end items-center flex-1 w-full bg-[#0f0f11]"
         role="main"
       >
         {/* Welcome Message */}
         <ResBox 
           messages={messages}
-          isGenerating={isConnected}
+          isGenerating={isGenerating} 
           showTypingIndicator={true}
           showWelcome={true}
+          // NOVA LINHA: Usa a prop onUserMessage para injetar a função addUserMessage
+          // dentro da chatRef, permitindo que o useChatState a chame.
+          onUserMessage={(addFunc) => chatRef.current = { addUserMessage: addFunc }} 
         />
         
         {/* Input Container */}
@@ -185,11 +183,14 @@ const Chat = () => {
          onSend={handleSend} 
          tooltipRef={tooltipRef}
          showTooltip={showTooltip}
-         hideTooltip={hideTooltip}/>
+         hideTooltip={hideTooltip}
+         isGenerating={isGenerating} 
+         stopGeneration={stopGeneration} 
+         />
       </div>
       
       {/* Footer */}
-      <footer className="flex items-center justify-center h-10 w-full text-white bgImg bg-[#0f0f11] text-sm">
+      <footer className="flex items-center justify-center h-10 w-full text-white bg-[#0f0f11] text-sm">
         <span>LaPlace&trade;</span>
       </footer>
       

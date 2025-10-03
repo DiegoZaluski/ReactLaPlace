@@ -1,32 +1,24 @@
-## Objetivo Deste Documento
+# LaPlace
 
-O projeto ainda está em seu estágio inicial, mas vou falar um pouco sobre a ideia por trás dele.
+## Objective
+LaPlace is an open-source project that brings together lightweight and efficient AI models, built upon Llama.cpp, to run locally on mid-to-high-performance computers. The focus is on delivering speed, low resource consumption, and enhanced privacy—all without requiring an internet connection.
 
-O objetivo principal é criar um sistema operacional com um Large Language Model (LLM) integrado. Esse LLM será capaz de controlar requisições de API e gerenciar operações dentro do próprio sistema, permitindo que ele se integre com outros sistemas operacionais ou funcione de forma autônoma e muito mais.
+## Key Features
+- Local execution of multiple AI models
+- Customizable environment for various fields (pentesting, development, automation, etc.)
+- Initial support for Linux, with future expansion planned for other operating systems
+- Quantized models optimized to run efficiently on standard hardware
+- Specific tools for pentesting, such as port/service mapping and task automation
 
-A ideia é que o sistema atue como um agente inteligente, capaz de chamar outras IAs open source e controlar operações como a organização de repositórios.
+## Project Status
+- Initial interface completed
+- Translation system implemented
+- Application under active development, already in testing with a functional model
+- Server configured, requiring only minor final adjustments
+- Backend development in progress
 
-A parte de front-end que eu criei serve para facilitar o acesso à documentação do projeto, que estará disponível no site. Além disso, ela terá o download do próprio OS/LLM e uma pequena interface para testar e entender melhor a ideia.
+## How to Contribute
+LaPlace is open to anyone interested in artificial intelligence, security, or development. Whether you're a beginner or an expert, your participation is welcome. Simply follow the repository, open issues, suggest improvements, or contribute code.
 
----
-## 📂 Estrutura do Projeto
-
-```
-react/
-├── public/             # Arquivos estáticos
-├── src/
-│   ├── components/     # Componentes reutilizáveis
-│   │   ├── Button.jsx
-│   │   ├── Language.jsx
-│   │   └── ...
-│   ├── pages/          # Páginas da aplicação
-│   │   ├── Login.jsx
-│   │   ├── Register.jsx
-│   │   └── ...
-│   ├── styles/         # Estilos globais
-│   └── App.jsx         # Componente raiz
-└── README.md           # Este arquivo
-```
----
-
-Eu sei que este é um projeto bastante ambicioso para uma pessoa só. Se você achou a ideia interessante e gostaria de contribuir, ficarei muito feliz com sua ajuda.
+## License
+An open-source project, constantly evolving together with the community.

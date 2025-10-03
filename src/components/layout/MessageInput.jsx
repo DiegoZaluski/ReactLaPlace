@@ -1,10 +1,7 @@
 import React, { useRef, useCallback } from 'react';
-import { Plus, ArrowUp } from 'lucide-react';
+import { Plus, ArrowUp, X} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { useSSEConnection } from '../../hooks/useSSEConnection.jsx';
-
-// Isolated Tooltip component
 const ClearTooltip = React.memo(({ tooltipRef }) => {
   const { t } = useTranslation();
   return (
@@ -19,7 +16,6 @@ const ClearTooltip = React.memo(({ tooltipRef }) => {
   );
 });
 
-// Isolated Clear button component
 const ClearButton = React.memo(({ onMouseEnter, onMouseLeave, onClick }) => (
   <button
     onMouseEnter={onMouseEnter}
@@ -33,7 +29,6 @@ const ClearButton = React.memo(({ onMouseEnter, onMouseLeave, onClick }) => (
   </button>
 ));
 
-// Main MessageInput component
 const MessageInput = React.memo(({ 
   textareaRef, 
   value, 
@@ -44,22 +39,55 @@ const MessageInput = React.memo(({
   tooltipRef,
   showTooltip,
   hideTooltip,
-  onSend
+  onSend,
+  isGenerating, 
+  stopGeneration 
 }) => {
-  const handleChange = (e) => {
-    onChange(e.target.value);
-    onHeightAdjust();
-    console.log(e.target.value);
-  };
-
-  return (
-    <form onSubmit={(e) => { 
+  
+  const handleSubmitOrStop = useCallback((e) => {
       e.preventDefault();
-      if (value.trim()) {
+      
+      if (isGenerating) {
+          stopGeneration();
+      } else if (value.trim()) {
+          onSend(value.trim());
+          onClear();
+      }
+  }, [isGenerating, stopGeneration, value, onSend, onClear]);
+
+
+  const handleEnterKey = useCallback((e) => {
+    if (e.key === 'Enter' && !e.shiftKey) 
+    {
+      e.preventDefault();
+      
+      if (isGenerating) {
+        stopGeneration();
+      } else if (value.trim()) {
         onSend(value.trim());
         onClear();
       }
-      }} className="flex flex-col relative w-80 xl:w-1/3 md:w-2/4 -translate-y-16 z-10">
+    }  
+  }, [isGenerating, stopGeneration, value, onSend, onClear]);
+  
+  const handleChange = (e) => {
+    onChange(e.target.value);
+    onHeightAdjust();
+  };
+
+  const SendStopButton = isGenerating ? (
+    <X className="w-4 h-4" />
+  ) : (
+    <ArrowUp className="w-4 h-4 text-black" />
+  );
+  
+  const isButtonDisabled = isGenerating ? false : !value.trim();
+
+  return (
+    <form 
+      onSubmit={handleSubmitOrStop} 
+      className="flex flex-col relative w-96 xl:w-1/2 md:w-2/4 -translate-y-16 z-10"
+    >
       <div className="flex flex-col relative w-full">
         <ClearTooltip tooltipRef={tooltipRef} />
         <ClearButton 
@@ -72,18 +100,21 @@ const MessageInput = React.memo(({
           placeholder={placeholder}
           value={value}
           onChange={handleChange}
-          className="w-full min-h-[9rem] max-h-40 bg-transparent outline-none caret-white text-white border border-[#F5F5DC] border-b-2 rounded-3xl p-4 pr-12 resize-none overflow-hidden shadow-b-xl transition-all duration-200"
+          className="bg-[#0000004D] w-full min-h-[9rem] max-h-40 outline-none caret-white text-white border border-black border-b-2 rounded-3xl p-4 pr-12 resize-none overflow-hidden shadow-b-xl transition-all duration-200"
           rows="1"
           style={{ scrollbarWidth: 'none' }}
           aria-label="Type your message"
-          onKeyDown={(e) => {if(e.key === 'Enter' && !e.shiftKey) {e.preventDefault(); onSend(value.trim()); onClear();}}}
+          onKeyDown={handleEnterKey} 
+          disabled={isGenerating} 
         />
         <button
           type="submit"
-          disabled={!value.trim()}
-          className="absolute right-4 bottom-4 w-8 h-8 bg-[#F5F5DC] hover:bg-white rounded-full flex items-center justify-center transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isButtonDisabled}
+          className={`absolute right-4 bottom-4 w-8 h-8 bg-[#F5F5DC] rounded-full flex items-center justify-center transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
+              isGenerating ? 'hover:bg-red-500 hover:text-white' : 'hover:bg-white'
+          }`}
         >
-          <ArrowUp className="w-4 h-4 text-black" />
+          {SendStopButton}
         </button>
       </div>
     </form>
